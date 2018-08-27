@@ -25,8 +25,6 @@ public class Slider
 
     public boolean firstUp;
 
-    //private Button cursorButton;
-
     public boolean tapped;
     private float velocityKoeff;
 
@@ -47,74 +45,26 @@ public class Slider
         this.startPoint = startPoint;
         this.value = startValue;
         this.angle = startAngle;
-
-
-        //firstUp = true;
-
         this.radiusSlider = radiusSlider;
 
         sliderCollider = new Collider(sliderRect);
-// offsetX = cursorRect.centerX() - cursorRect.left;
-        // offsetY = cursorRect.centerY() - cursorRect.top;
-
         velocityKoeff = GameController.screenWidth / 150000;
-
-
         tapPosition = centre;
- /*if (horz)
- {
- sliderCollider = new Collider(new Rect(sliderRect.left + offsetX / 2, sliderRect.top - offsetY,
- sliderRect.right - offsetX / 2, sliderRect.bottom + offsetY));
- }*/
-
-        //GameController.AttachSlider(this);
-
-        //updateCursorRect();
     }
 
-    private void updateCursorRect()
-    {
-        /*if (horz)
-        {
-            float newCenter = sliderCollider.rect.left * (maxValue - value) / (maxValue - minValue) +
-                    sliderCollider.rect.right * (value - minValue) / (maxValue - minValue);
-            cursorRect.set((int)newCenter - offsetX, cursorRect.top, (int)newCenter + offsetX, cursorRect.bottom);
-        }
-        else
-        {
-            float newCenter = sliderRect.top * (maxValue - value) / (maxValue - minValue) +
-                    sliderRect.bottom * (value - minValue) / (maxValue - minValue);
-            cursorRect.set(cursorRect.left, (int)newCenter - offsetY, cursorRect.right, (int)newCenter + offsetY);
-        }*/
-
-    }
 
     public void draw(Canvas canvas)
     {
         paint.setColor(Color.BLACK);
-        //canvas.drawRect(sliderRect, paint);
-
-        //paint.setColor(Color.BLUE);
-        /*canvas.drawLine(sliderCollider.rect.right, sliderCollider.rect.top,
-                sliderCollider.rect.right, sliderCollider.rect.bottom, paint);*/
-        //canvas.drawRect(sliderCollider.rect, paint);
-        //paint.setColor(Color.MAGENTA);
-        //canvas.drawRect(cursorRect, paint);
-
         canvas.save();
-       // Log.d("slider", "" + value);
         canvas.rotate(angle, centre.x, centre.y);
         canvas.scale(value / (float)maxValue, 1, startPoint.x, startPoint.y);
         canvas.drawBitmap(MainActivity.arrow, null, sliderRect, paint);
-        //canvas.drawLine(centre.x, centre.y, tapPosition.x, tapPosition.y, paint);
         canvas.restore();
-
     }
 
     public void Activate()
     {
-
-        //firstUp = true;
     }
 
     public int getValue()
@@ -136,16 +86,10 @@ public class Slider
 
     public boolean update(Vector2 movePosition)
     {
-        //получить value из координат cursorRect и оповестить подписчиков
-        //if (sliderCollider.intersectsP(movePosition.x, movePosition.y))
         {
             tapped = true;
-            //if (horz)
             {
-                /*value = (int)((movePosition.x - sliderCollider.rect.left) * (maxValue - minValue) /
-                        (sliderCollider.rect.right - sliderCollider.rect.left));*/
                 Vector2 direction = movePosition.minus(centre);
-                //value = (int)(direction.len() / sliderRect.width() * maxValue);
                 value = (int)((direction.len() - radiusSlider.x)/ sliderRect.width() * maxValue);
 
                 if (value > maxValue)
@@ -174,6 +118,5 @@ public class Slider
             }
             return true;
         }
-        //return false;
     }
 }
