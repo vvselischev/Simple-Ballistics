@@ -1,2 +1,2 @@
 # Simple-Ballistics
-See the .pdf to learn more
+See the PDF to learn more
